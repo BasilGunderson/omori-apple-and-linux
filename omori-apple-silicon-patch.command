@@ -6,24 +6,25 @@ echo "|     - OMORI APPLE SILICON PATCH TOOL -    |"
 echo "\\-------------------------------------------/"
 echo ""
 
-OMORI=~/Library/Application\ Support/Steam/steamapps/common/OMORI
+OMORI=~/Library/Application\ Support/Steam/steamapps/common/OMORI # Directory of Omori
 
-if [ ! -d "${OMORI}" ] || [ ! -d "${OMORI}/OMORI.app" ]; then
+if [ ! -d "${OMORI}" ] || [ ! -d "${OMORI}/OMORI.app" ]; then # Looks for Omori
   echo "[!!] Please install OMORI using Steam before using this tool.";
   exit 1;
 fi;
 
 echo "Backing up original OMORI copy.."
 if [ -f "${OMORI}/OMORI.original.app" ]; then
-  rm -rf "${OMORI}/OMORI.original.app"
+  rm -rf "${OMORI}/OMORI.original.app" # Removes original backup
 fi;
-cp -r "${OMORI}/OMORI.app" "${OMORI}/OMORI.original.app";
+cp -r "${OMORI}/OMORI.app" "${OMORI}/OMORI.original.app"; # Copies files to backup folder
 
 TMPFOLDER=`mktemp -d /tmp/omori-patch.XXXXXX` || exit 1
-cd $TMPFOLDER;
+cd $TMPFOLDER; # Creates temporary folder
 
-mv "${OMORI}/OMORI.app" "./OMORI.original.app";
+mv "${OMORI}/OMORI.app" "./OMORI.original.app"; # Moves game files to temporary folder
 
+# Downloads required files
 echo "Downloading nwjs.."
 curl -#L -o nwjs.zip https://dl.node-webkit.org/v0.106.1/nwjs-v0.106.1-osx-arm64.zip
 echo "Downloading node polyfill patch.."
@@ -34,11 +35,13 @@ curl -#L -o greenworks-osxarm64.node https://github.com/BasilGunderson/omori-app
 echo "Downloading steamworks api.."
 curl -#L -o steam.zip https://github.com/BasilGunderson/omori-apple-silicon-and-intel/releases/download/v1.0.0/steam.zip
 
+# Extracts specific archives
 echo "Extracting nwjs.."
 unzip -q nwjs.zip
 echo "Extracting steamworks.."
 unzip -qq steam.zip
 
+# Patches game by moving files
 echo "Patching game.."
 mv "./nwjs-v0.106.1-osx-arm64/nwjs.app" "./OMORI.app"
 mv -f ./OMORI.original.app/Contents/Resources/app.nw ./OMORI.app/Contents/Resources/
