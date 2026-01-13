@@ -9,7 +9,7 @@ echo ""
 OMORI=~/Library/Application\ Support/Steam/steamapps/common/OMORI # Directory of Omori
 
 if [ ! -d "${OMORI}" ]; then # Looks for Omori
-  echo "[!!] Please make sure you have Omori installed on steam before using this tool.";
+  echo "[!!] Please install OMORI using Steam before using this tool.";
   exit 1;
 fi;
 
