@@ -26,7 +26,7 @@ mv "${OMORI}/OMORI.app" "./OMORI.original.app"; # Moves game files to temporary 
 
 # Downloads required files
 echo "Downloading nwjs.."
-curl -#L -o nwjs.zip https://dl.node-webkit.org/v0.106.1/nwjs-v0.106.1-osx-arm64.zip
+curl -#L -o nwjs.zip https://dl.node-webkit.org/v0.103.1/nwjs-v0.103.1-osx-arm64.zip
 echo "Downloading node polyfill patch.."
 curl -#L -o node-polyfill-patch.js https://github.com/BasilGunderson/omori-apple-silicon-and-intel/releases/download/v1.0.0/node-polyfill-patch.js
 echo "Downloading greenworks patches.."
@@ -43,7 +43,7 @@ unzip -qq steam.zip
 
 # Patches game by moving files
 echo "Patching game.."
-mv "./nwjs-v0.106.1-osx-arm64/nwjs.app" "./OMORI.app"
+mv "./nwjs-v0.103.1-osx-arm64/nwjs.app" "./OMORI.app"
 mv -f ./OMORI.original.app/Contents/Resources/app.nw ./OMORI.app/Contents/Resources/
 mv -f ./OMORI.original.app/Contents/Resources/app.icns ./OMORI.app/Contents/Resources/
 mv -f ./node-polyfill-patch.js ./OMORI.app/Contents/Resources/app.nw/js/libs/
