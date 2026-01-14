@@ -143,56 +143,56 @@ fi
 
 # Patches game by moving files
 echo "Patching game.."
-mv "./nwjs-v0.103.1-osx-x64/nwjs.app" "./OMORI"
+mv "./nwjs-v0.103.1-osx-x64/nwjs.app" "./OMORI.app"
 if [ $? -ne 0 ]; then
   echo "[!!] Failed to move nwjs.app. Restoring original game and exiting."
   mv "./OMORI.original.app" "${OMORI}/OMORI.app"
   exit 1
 fi
 
-mv -f ./OMORI.original/Contents/Resources/app.nw ./OMORI/Contents/Resources/
+mv -f ./OMORI.original.app/Contents/Resources/app.nw ./OMORI.app/Contents/Resources/
 if [ $? -ne 0 ]; then
   echo "[!!] Failed to move app.nw. Restoring original game and exiting."
   mv "./OMORI.original.app" "${OMORI}/OMORI.app"
   exit 1
 fi
 
-mv -f ./OMORI.original/Contents/Resources/app.icns ./OMORI/Contents/Resources/
+mv -f ./OMORI.original.app/Contents/Resources/app.icns ./OMORI.app/Contents/Resources/
 if [ $? -ne 0 ]; then
   echo "[!!] Failed to move app.icns. Restoring original game and exiting."
   mv "./OMORI.original.app" "${OMORI}/OMORI.app"
   exit 1
 fi
 
-mv -f ./node-polyfill-patch.js ./OMORI/Contents/Resources/app.nw/js/libs/
+mv -f ./node-polyfill-patch.js ./OMORI.app/Contents/Resources/app.nw/js/libs/
 if [ $? -ne 0 ]; then
   echo "[!!] Failed to move node-polyfill-patch.js. Restoring original game and exiting."
   mv "./OMORI.original.app" "${OMORI}/OMORI.app"
   exit 1
 fi
 
-mv -f ./greenworks.js ./OMORI/Contents/Resources/app.nw/js/libs/
+mv -f ./greenworks.js ./OMORI.app/Contents/Resources/app.nw/js/libs/
 if [ $? -ne 0 ]; then
   echo "[!!] Failed to move greenworks.js. Restoring original game and exiting."
   mv "./OMORI.original.app" "${OMORI}/OMORI.app"
   exit 1
 fi
 
-mv -f ./greenworks-osx64.node ./OMORI/Contents/Resources/app.nw/js/libs/
+mv -f ./greenworks-osx64.node ./OMORI.app/Contents/Resources/app.nw/js/libs/
 if [ $? -ne 0 ]; then
   echo "[!!] Failed to move greenworks-osxarm64.node. Restoring original game and exiting."
   mv "./OMORI.original.app" "${OMORI}/OMORI.app"
   exit 1
 fi
 
-mv -f ./steam/libsteam_api.dylib ./OMORI/Contents/Resources/app.nw/js/libs/
+mv -f ./steam/libsteam_api.dylib ./OMORI.app/Contents/Resources/app.nw/js/libs/
 if [ $? -ne 0 ]; then
   echo "[!!] Failed to move libsteam_api.dylib. Restoring original game and exiting."
   mv "./OMORI.original.app" "${OMORI}/OMORI.app"
   exit 1
 fi
 
-mv -f ./steam/libsdkencryptedappticket.dylib ./OMORI/Contents/Resources/app.nw/js/libs/
+mv -f ./steam/libsdkencryptedappticket.dylib ./OMORI.app/Contents/Resources/app.nw/js/libs/
 if [ $? -ne 0 ]; then
   echo "[!!] Failed to move libsdkencryptedappticket.dylib. Restoring original game and exiting."
   mv "./OMORI.original.app" "${OMORI}/OMORI.app"
