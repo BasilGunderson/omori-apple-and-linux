@@ -10,7 +10,7 @@ Make sure you have Steam installed, and OMORI is downloaded within Steam. Launch
 
 ### Download
 
-Download the latest version of the patch script (omori-apple-silicon-patch.command) from the [releases](https://github.com/SnowpMakes/omori-apple-silicon/releases/latest) page.
+Download the latest version of the patch script (omori-apple-silicon-patch.command) from the [releases](https://github.com/BasilGunderson/omori-apple-and-linux/releases/latest) page.
 
 ### Run the patch
 
@@ -27,13 +27,14 @@ If MacOS complains about the security of the file, or it's "not executable", ope
 
 ### Run the patch
 
-Open a Terminal, then run this command "bash <(curl -s https://raw.githubusercontent.com/DaCUtePotato/omori-apple-intel/master/omori.sh)"
+Open a Terminal, then run this command `bash <(curl -s https://raw.githubusercontent.com/BasilGunderson/omori-apple-and-linux/main/omori.sh)`
 
 ### Alternatively, for manual install
 
-Download the repository and run this command "chmod +x path_to_sh_file_in_cloned_repo"
+Download the repository and run this command `chmod +x path_to_sh_file_in_cloned_repo`
 
 After that, drag the .sh file into your terminal (or enter the path to the sh) and press Enter.
 
 Once the process has finished, quit terminal and launch OMORI through Steam.
+
 
