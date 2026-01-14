@@ -128,8 +128,8 @@ if [ ! -d "./steam" ]; then
   exit 1
 fi
 
-if [ ! -d "./steam/libsteam_api.dylib" ]; then
-  echo "[!!] Expected libsteam_api.dylib not found after extraction. Restoring original game and exiting."
+if [ ! -d "./steam/libsteamapi.dylib" ]; then
+  echo "[!!] Expected libsteamapi.dylib not found after extraction. Restoring original game and exiting."
   mv "./OMORI.original" "${OMORI}"
   exit 1
 fi
@@ -185,9 +185,9 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-mv -f ./steam/libsteam_api.dylib ./OMORI/Contents/Resources/app.nw/js/libs/
+mv -f ./steam/libsteamapi.dylib ./OMORI/Contents/Resources/app.nw/js/libs/
 if [ $? -ne 0 ]; then
-  echo "[!!] Failed to move libsteam_api.dylib. Restoring original game and exiting."
+  echo "[!!] Failed to move libsteamapi.dylib. Restoring original game and exiting."
   mv "./OMORI.original" "${OMORI}"
   exit 1
 fi
