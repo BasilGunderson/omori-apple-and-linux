@@ -14,13 +14,17 @@ OMORI=~/Library/Application\ Support/Steam/steamapps/common/OMORI
 
 # Looks for Omori
 if [ ! -d "${OMORI}" ] || [ ! -d "${OMORI}/OMORI.app" ]; then
+  echo ""
   echo "[!!] Please install OMORI using Steam before using this tool."
+  echo ""
   exit 1
 fi
 
 
 # Copies files to backup folder
+echo ""
 echo "Backing up original OMORI copy.."
+echo ""
 if [ -f "${OMORI}/OMORI.original.app" ]; then
   rm -rf "${OMORI}/OMORI.original.app" # Removes original backup
 fi
@@ -36,7 +40,9 @@ mv "${OMORI}/OMORI.app" "./OMORI.original.app"
 
 
 # Downloads required files with error checks
+echo ""
 echo "Downloading nwjs for Intel.."
+echo ""
 curl -#L -o nwjs.zip https://dl.node-webkit.org/v0.103.1/nwjs-v0.103.1-osx-x64.zip
 if [ $? -ne 0 ]; then
   echo "[!!] Failed to download nwjs. Restoring original game and exiting."
@@ -44,7 +50,9 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
+echo ""
 echo "Downloading node polyfill patch.."
+echo ""
 curl -#L -o node-polyfill-patch.js https://github.com/BasilGunderson/omori-apple-patch/releases/download/v1.0.0/node-polyfill-patch.js
 if [ $? -ne 0 ]; then
   echo "[!!] Failed to download node polyfill patch. Restoring original game and exiting."
@@ -52,7 +60,9 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
+echo ""
 echo "Downloading greenworks patches for Intel.."
+echo ""
 curl -#L -o greenworks.js https://github.com/BasilGunderson/omori-apple-patch/releases/download/v1.0.0/greenworks.js
 curl -#L -o greenworks-osx64.node https://github.com/BasilGunderson/omori-apple-patch/releases/download/v1.0.0/greenworks-osx64.node
 if [ $? -ne 0 ]; then
@@ -61,7 +71,9 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
+echo ""
 echo "Downloading steamworks api.."
+echo ""
 curl -#L -o steam.zip https://github.com/BasilGunderson/omori-apple-patch/releases/download/v1.0.0/steam.zip
 if [ $? -ne 0 ]; then
   echo "[!!] Failed to download steamworks api. Restoring original game and exiting."
@@ -71,20 +83,28 @@ fi
 
 
 # Extracts specific archives with error checks
+echo ""
 echo "Extracting nwjs.."
+echo ""
 unzip -q nwjs.zip
 if [ $? -ne 0 ]; then
+  echo ""
   echo "[!!] Failed to extract nwjs.zip. The file may be corrupted. Trying to re-download..."
+  echo ""
   rm -f nwjs.zip
   curl -#L -o nwjs.zip https://dl.node-webkit.org/v0.103.1/nwjs-v0.103.1-osx-x64.zip
   if [ $? -ne 0 ]; then
+    echo ""
     echo "[!!] Failed to re-download nwjs. Restoring original game and exiting."
+    echo ""
     mv "./OMORI.original.app" "${OMORI}/OMORI.app"
     exit 1
   fi
   unzip -q nwjs.zip
   if [ $? -ne 0 ]; then
+    echo ""
     echo "[!!] Failed to extract nwjs.zip again. Restoring original game and exiting."
+    echo ""
     mv "./OMORI.original.app" "${OMORI}/OMORI.app"
     exit 1
   fi
@@ -92,50 +112,68 @@ fi
 
 # Verify that the extraction created the expected directory
 if [ ! -d "./nwjs-v0.103.1-osx-x64" ]; then
+  echo ""
   echo "[!!] Expected nwjs directory not found after extraction. Restoring original game and exiting."
+  echo ""
   mv "./OMORI.original.app" "${OMORI}/OMORI.app"
   exit 1
 fi
 
 if [ ! -d "./nwjs-v0.103.1-osx-x64/nwjs.app" ]; then
+  echo ""
   echo "[!!] Expected nwjs.app not found after extraction. Restoring original game and exiting."
+  echo ""
   mv "./OMORI.original.app" "${OMORI}/OMORI.app"
   exit 1
 fi
 
+echo ""
 echo "Extracting steamworks.."
+echo ""
 unzip -qq steam.zip
 if [ $? -ne 0 ]; then
+  echo ""
   echo "[!!] Failed to extract steam.zip. The file may be corrupted. Trying to re-download..."
+  echo ""
   rm -f steam.zip
   curl -#L -o steam.zip https://github.com/BasilGunderson/omori-apple-patch/releases/download/v1.0.0/steam.zip
   if [ $? -ne 0 ]; then
+    echo ""
     echo "[!!] Failed to re-download steamworks api. Restoring original game and exiting."
+    echo ""
     mv "./OMORI.original.app" "${OMORI}/OMORI.app"
     exit 1
   fi
   unzip -qq steam.zip
   if [ $? -ne 0 ]; then
+    echo ""
     echo "[!!] Failed to extract steam.zip again. Restoring original game and exiting."
+    echo ""
     mv "./OMORI.original.app" "${OMORI}/OMORI.app"
     exit 1
   fi
 fi
 
 if [ ! -d "./steam" ]; then
+  echo ""
   echo "[!!] Expected steamworks directory not found after extraction. Restoring original game and exiting."
+  echo ""
   mv "./OMORI.original.app" "${OMORI}/OMORI.app"
   exit 1
 fi
 
 if [ ! "./steam/libsteam_api.dylib" ]; then
+  echo ""
   echo "[!!] Expected libsteam_api.dylib not found after extraction. Restoring original game and exiting."
+  echo ""
   mv "./OMORI.original.app" "${OMORI}/OMORI.app"
   exit 1
 fi
 
 if [ ! "./steam/libsdkencryptedappticket.dylib" ]; then
+  echo ""
   echo "[!!] Expected libsdkencryptedappticket.dylib not found after extraction. Restoring original game and exiting."
+  echo ""
   mv "./OMORI.original.app" "${OMORI}/OMORI.app"
   exit 1
 fi
@@ -152,50 +190,43 @@ fi
 
 mv -f ./OMORI.original.app/Contents/Resources/app.nw ./OMORI.app/Contents/Resources/
 if [ $? -ne 0 ]; then
-  echo "[!!] Failed to move app.nw. Restoring original game and exiting."
-  mv "./OMORI.original.app" "${OMORI}/OMORI.app"
+  echo "[!!] Failed to move app.nw. Please validate your game through Steam."
   exit 1
 fi
 
 mv -f ./OMORI.original.app/Contents/Resources/app.icns ./OMORI.app/Contents/Resources/
 if [ $? -ne 0 ]; then
-  echo "[!!] Failed to move app.icns. Restoring original game and exiting."
-  mv "./OMORI.original.app" "${OMORI}/OMORI.app"
+  echo "[!!] Failed to move app.icns. Please validate your game through Steam."
   exit 1
 fi
 
 mv -f ./node-polyfill-patch.js ./OMORI.app/Contents/Resources/app.nw/js/libs/
 if [ $? -ne 0 ]; then
-  echo "[!!] Failed to move node-polyfill-patch.js. Restoring original game and exiting."
-  mv "./OMORI.original.app" "${OMORI}/OMORI.app"
+  echo "[!!] Failed to move node-polyfill-patch.js. Please validate your game through Steam."
   exit 1
 fi
 
 mv -f ./greenworks.js ./OMORI.app/Contents/Resources/app.nw/js/libs/
 if [ $? -ne 0 ]; then
-  echo "[!!] Failed to move greenworks.js. Restoring original game and exiting."
-  mv "./OMORI.original.app" "${OMORI}/OMORI.app"
+  echo "[!!] Failed to move greenworks.js. Please validate your game through Steam."
   exit 1
 fi
 
 mv -f ./greenworks-osx64.node ./OMORI.app/Contents/Resources/app.nw/js/libs/
 if [ $? -ne 0 ]; then
-  echo "[!!] Failed to move greenworks-osxarm64.node. Restoring original game and exiting."
-  mv "./OMORI.original.app" "${OMORI}/OMORI.app"
+  echo "[!!] Failed to move greenworks-osxarm64.node. Please validate your game through Steam."
   exit 1
 fi
 
 mv -f ./steam/libsteam_api.dylib ./OMORI.app/Contents/Resources/app.nw/js/libs/
 if [ $? -ne 0 ]; then
-  echo "[!!] Failed to move libsteam_api.dylib. Restoring original game and exiting."
-  mv "./OMORI.original.app" "${OMORI}/OMORI.app"
+  echo "[!!] Failed to move libsteam_api.dylib. Please validate your game through Steam."
   exit 1
 fi
 
 mv -f ./steam/libsdkencryptedappticket.dylib ./OMORI.app/Contents/Resources/app.nw/js/libs/
 if [ $? -ne 0 ]; then
-  echo "[!!] Failed to move libsdkencryptedappticket.dylib. Restoring original game and exiting."
-  mv "./OMORI.original.app" "${OMORI}/OMORI.app"
+  echo "[!!] Failed to move libsdkencryptedappticket.dylib. Please validate your game through Steam."
   exit 1
 fi
 
