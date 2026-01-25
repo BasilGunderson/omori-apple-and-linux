@@ -44,5 +44,3 @@ Once the process has finished, quit terminal and launch OMORI through Steam.
 
 Simply verify the integrity of your OMORI game files through Steam
 
-Afterwards, delete the OMORI Patch folder found inside of your tmp (or temp) folder.
-
